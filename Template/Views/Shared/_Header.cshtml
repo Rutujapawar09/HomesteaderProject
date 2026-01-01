@@ -1,0 +1,21 @@
+﻿<header id="header" class="header d-flex align-items-center position-relative">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center justify-content-between">
+
+        <a asp-controller="Home" asp-action="Index" class="logo d-flex align-items-center">
+            <img src="~/img/logo.png" alt="AgriCulture">
+        </a>
+
+        <nav id="navmenu" class="navmenu">
+            <ul>
+                <li><a asp-controller="Home" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")">Home</a></li>
+                <li><a asp-controller="About" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "About" ? "active" : "")">About Us</a></li>
+                <li><a asp-controller="Services" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Services" ? "active" : "")">Our Services</a></li>
+                <li><a asp-controller="Testimonials" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Testimonials" ? "active" : "")">Testimonials</a></li>
+                <li><a asp-controller="Blog" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Blog" ? "active" : "")">Blog</a></li>
+                <li><a asp-controller="Contact" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Contact" ? "active" : "")">Contact</a></li>
+            </ul>
+            <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+        </nav>
+
+    </div>
+</header>
