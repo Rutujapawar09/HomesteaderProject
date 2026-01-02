@@ -7,13 +7,40 @@
 
         <nav id="navmenu" class="navmenu">
             <ul>
-                <li><a asp-controller="Home" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")">Home</a></li>
-                <li><a asp-controller="About" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "About" ? "active" : "")">About Us</a></li>
-                <li><a asp-controller="Services" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Services" ? "active" : "")">Our Services</a></li>
-                <li><a asp-controller="Testimonials" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Testimonials" ? "active" : "")">Testimonials</a></li>
-                <li><a asp-controller="Blog" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Blog" ? "active" : "")">Blog</a></li>
-                <li><a asp-controller="Contact" asp-action="Index" class="@(ViewContext.RouteData.Values["Controller"]?.ToString() == "Contact" ? "active" : "")">Contact</a></li>
+                <li><a asp-controller="Home" asp-action="Index">Home</a></li>
+                <li><a asp-controller="About" asp-action="Index">About Us</a></li>
+                <li><a asp-controller="Services" asp-action="Index">Our Services</a></li>
+                <li><a asp-controller="Testimonials" asp-action="Index">Testimonials</a></li>
+                <li><a asp-controller="Blog" asp-action="Index">Blog</a></li>
+                <li><a asp-controller="Contact" asp-action="Index">Contact</a></li>
+
+                <!-- LOGIN DROPDOWN -->
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Login
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a class="dropdown-item"
+                               asp-controller="Auth"
+                               asp-action="Login">
+                                Login
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                               asp-controller="Auth"
+                               asp-action="Register">
+                                Register
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
+
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 

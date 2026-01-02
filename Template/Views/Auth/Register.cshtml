@@ -1,0 +1,84 @@
+﻿@{
+    ViewData["Title"] = "Register";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="width: 100%; max-width: 450px;">
+
+        <div class="text-center mb-4">
+            <h3 class="fw-bold text-success">Homesteader Registration</h3>
+            <p class="text-muted">Create your account</p>
+        </div>
+
+        <form asp-action="Register" method="post">
+
+            <!-- Name -->
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text"
+                       name="Name"
+                       class="form-control"
+                       placeholder="Enter your full name"
+                       required />
+            </div>
+
+            <!-- Email -->
+            <div class="mb-3">
+                <label class="form-label">Email Address</label>
+                <input type="email"
+                       name="Email"
+                       class="form-control"
+                       placeholder="Enter your email"
+                       required />
+            </div>
+
+            <!-- Password -->
+            <div class="mb-3">
+                <label class="form-label">Password</label>
+                <input type="password"
+                       name="Password"
+                       class="form-control"
+                       placeholder="Create a password"
+                       required />
+            </div>
+
+            <!-- Role -->
+            <div class="mb-3">
+                <label class="form-label">Register As</label>
+                <select name="Role" class="form-select" required>
+                    <option value="">-- Select Role --</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Farmer">Farmer</option>
+                    <option value="Student">Student</option>
+                    <option value="Agency">Agro Agency</option>
+                </select>
+            </div>
+
+            <!-- Info Message -->
+            <div class="alert alert-info py-2">
+                <small>
+                    Note: Your account will be activated after approval by the Admin.
+                </small>
+            </div>
+
+            <!-- Submit -->
+            <div class="d-grid">
+                <button type="submit" class="btn btn-success">
+                    Register
+                </button>
+            </div>
+
+        </form>
+
+        <!-- Login Link -->
+        <div class="text-center mt-3">
+            <small>
+                Already have an account?
+                <a asp-controller="Auth" asp-action="Login" class="text-success fw-bold">
+                    Login here
+                </a>
+            </small>
+        </div>
+
+    </div>
+</div>
