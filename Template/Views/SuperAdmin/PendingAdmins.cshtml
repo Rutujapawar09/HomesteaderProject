@@ -1,0 +1,66 @@
+﻿@model List<User>
+
+@{
+    ViewData["Title"] = "Pending Admin Approvals";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">Pending Admin Approvals</h3>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["Success"]
+        </div>
+    }
+
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            No pending admin approvals
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-success">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Registered On</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var admin in Model)
+                    {
+                        <tr>
+                            <td>@admin.Name</td>
+                            <td>@admin.Email</td>
+                            <td>@admin.CreatedAt.ToString("dd MMM yyyy")</td>
+                            <td>
+                                <a asp-action="ApproveAdmin" 
+                                   asp-route-id="@admin.UserId" 
+                                   class="btn btn-success btn-sm"
+                                   onclick="return confirm('Approve this admin?')">
+                                    ✓ Approve
+                                </a>
+                                <a asp-action="RejectAdmin" 
+                                   asp-route-id="@admin.UserId" 
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Reject this admin?')">
+                                    ✗ Reject
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">
+        ← Back to Dashboard
+    </a>
+</div>
