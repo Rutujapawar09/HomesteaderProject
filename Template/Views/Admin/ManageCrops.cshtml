@@ -1,0 +1,49 @@
+﻿@model List<Template.Models.Crop>
+
+@{
+    ViewData["Title"] = "Manage Crops";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-4">
+        <h3>🌾 Manage Crops</h3>
+        <a asp-action="AddCrop" class="btn btn-success">+ Add New Crop</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th>Name</th>
+                <th>Season</th>
+                <th>Soil Type</th>
+                <th>Region</th>
+                <th>Growth Duration</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var crop in Model)
+            {
+                <tr>
+                    <td><strong>@crop.Name</strong></td>
+                    <td>@crop.Season</td>
+                    <td>@crop.SoilType</td>
+                    <td>@crop.Region</td>
+                    <td>@crop.GrowthDuration days</td>
+                    <td>
+                        <a asp-action="DeleteCrop" asp-route-id="@crop.CropId" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this crop?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back</a>
+</div>

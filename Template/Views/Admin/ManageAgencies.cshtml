@@ -1,0 +1,54 @@
+﻿@model List<Template.Models.User>
+
+@{
+    ViewData["Title"] = "Manage Agencies";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">🏢 Manage Agro Agencies</h3>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-warning">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Registered On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var agency in Model)
+            {
+                <tr>
+                    <td>@agency.Name</td>
+                    <td>@agency.Email</td>
+                    <td>
+                        <span class="badge bg-@(agency.Status == "Approved" ? "success" : "warning")">
+                            @agency.Status
+                        </span>
+                    </td>
+                    <td>@agency.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td>
+                        @if (agency.Status == "Pending")
+                        {
+                            <a asp-action="ApproveAgency" asp-route-id="@agency.UserId" class="btn btn-success btn-sm">✓ Approve</a>
+                            <a asp-action="RejectAgency" asp-route-id="@agency.UserId" class="btn btn-danger btn-sm">✗ Reject</a>
+                        }
+                        else
+                        {
+                            <span class="text-muted">@agency.Status</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back</a>
+</div>

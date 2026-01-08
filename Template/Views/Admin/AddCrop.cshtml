@@ -1,0 +1,59 @@
+﻿@{
+    ViewData["Title"] = "Add Crop";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">🌱 Add New Crop</h3>
+
+    <form asp-action="AddCrop" method="post" class="card p-4 shadow">
+        <div class="mb-3">
+            <label class="form-label">Crop Name *</label>
+            <input type="text" name="Name" class="form-control" required />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="Description" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Season *</label>
+                <select name="Season" class="form-select" required>
+                    <option value="">Select Season</option>
+                    <option value="Kharif">Kharif</option>
+                    <option value="Rabi">Rabi</option>
+                    <option value="Zaid">Zaid</option>
+                    <option value="All Season">All Season</option>
+                </select>
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Soil Type</label>
+                <input type="text" name="SoilType" class="form-control" placeholder="e.g., Loamy, Clay" />
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Region</label>
+                <input type="text" name="Region" class="form-control" />
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Water Requirement (mm)</label>
+                <input type="number" name="WaterRequirement" class="form-control" />
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label class="form-label">Growth Duration (days)</label>
+                <input type="number" name="GrowthDuration" class="form-control" />
+            </div>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Save Crop</button>
+            <a asp-action="ManageCrops" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Add Soil Report";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">🧪 Add Soil Report</h3>
+
+    <form asp-action="AddSoilReport" method="post" class="card p-4 shadow">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Region *</label>
+                <input type="text" name="Region" class="form-control" required />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Soil Type *</label>
+                <select name="SoilType" class="form-select" required>
+                    <option value="">Select Type</option>
+                    <option value="Loamy">Loamy</option>
+                    <option value="Clay">Clay</option>
+                    <option value="Sandy">Sandy</option>
+                    <option value="Black">Black</option>
+                    <option value="Red">Red</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label">pH Level</label>
+                <input type="number" name="pH" step="0.1" class="form-control" />
+            </div>
+
+            <div class="col-md-6 mb-3">
+                <label class="form-label">Fertility Score (1-10)</label>
+                <input type="number" name="FertilityScore" min="1" max="10" class="form-control" />
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Recommended Crops</label>
+            <input type="text" name="RecommendedCrops" class="form-control" placeholder="e.g., Wheat, Rice, Cotton" />
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">Recommendations</label>
+            <textarea name="Recommendations" class="form-control" rows="3"></textarea>
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-success">Save Report</button>
+            <a asp-action="ManageSoilReports" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>

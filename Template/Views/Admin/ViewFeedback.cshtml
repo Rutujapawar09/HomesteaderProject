@@ -1,0 +1,46 @@
+﻿@model List<Template.Models.Feedback>
+
+@{
+    ViewData["Title"] = "View Feedback";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">💬 User Feedback</h3>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-danger">
+            <tr>
+                <th>User ID</th>
+                <th>Subject</th>
+                <th>Message</th>
+                <th>Rating</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var feedback in Model)
+            {
+                <tr class="@(feedback.Status == "Unread" ? "table-warning" : "")">
+                    <td>@feedback.UserId</td>
+                    <td><strong>@feedback.Subject</strong></td>
+                    <td>@feedback.Message</td>
+                    <td>@for (int i = 0; i < (feedback.Rating ?? 0); i++)
+                      {
+                        <span class="text-warning">★</span>
+                      }
+                    </td>
+                    <td>@feedback.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td><span class="badge bg-@(feedback.Status == "Unread" ? "warning" : "success")">@feedback.Status</span></td>
+                    <td>@if (feedback.Status == "Unread")
+                        {
+                           <a asp-action="MarkFeedbackRead" asp-route-id="@feedback.FeedbackId" class="btn btn-sm btn-success">Mark Read</a>
+                         }
+                    </td>
+                    </tr>
+}
+</tbody>
+</table>
+<a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back</a>
+</div>

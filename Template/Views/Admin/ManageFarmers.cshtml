@@ -1,0 +1,53 @@
+﻿@model List<Template.Models.User>
+
+@{
+    ViewData["Title"] = "Manage Farmers";
+}
+
+<div class="container mt-4">
+    <h3 class="mb-4">👨‍🌾 Manage Farmers</h3>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-success">
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Status</th>
+                <th>Registered On</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var farmer in Model)
+            {
+                <tr>
+                    <td>@farmer.Name</td>
+                    <td>@farmer.Email</td>
+                    <td>
+                        <span class="badge bg-@(farmer.Status == "Approved" ? "success" : "warning")">
+                            @farmer.Status
+                        </span>
+                    </td>
+                    <td>@farmer.CreatedAt.ToString("dd MMM yyyy")</td>
+                    <td>
+                        @if (farmer.Status == "Pending")
+                        {
+                            <a asp-action="ApproveFarmer" asp-route-id="@farmer.UserId" class="btn btn-success btn-sm">✓ Approve</a>
+                        }
+                        else
+                        {
+                            <span class="text-success">✓ Approved</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back</a>
+</div>

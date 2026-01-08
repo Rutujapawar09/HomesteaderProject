@@ -1,0 +1,47 @@
+﻿@model List<Template.Models.SoilReport>
+
+@{
+    ViewData["Title"] = "Soil Reports";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-4">
+        <h3>📊 Soil Analysis Reports</h3>
+        <a asp-action="AddSoilReport" class="btn btn-success">+ Add Report</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Region</th>
+                <th>Soil Type</th>
+                <th>pH</th>
+                <th>Fertility Score</th>
+                <th>Recommended Crops</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var report in Model)
+            {
+                <tr>
+                    <td><strong>@report.Region</strong></td>
+                    <td>@report.SoilType</td>
+                    <td>@report.pH</td>
+                    <td>
+                        <span class="badge bg-success">@report.FertilityScore/10</span>
+                    </td>
+                    <td>@report.RecommendedCrops</td>
+                    <td>@report.CreatedAt.ToString("dd MMM yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back</a>
+</div>

@@ -1,0 +1,49 @@
+﻿@model List<Template.Models.MarketPrice>
+
+@{
+    ViewData["Title"] = "Market Prices";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between mb-4">
+        <h3>💰 Market Prices</h3>
+        <a asp-action="AddPrice" class="btn btn-success">+ Add Price</a>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-info">
+            <tr>
+                <th>Crop Name</th>
+                <th>Market Name</th>
+                <th>Price</th>
+                <th>Unit</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var price in Model)
+            {
+                <tr>
+                    <td><strong>@price.CropName</strong></td>
+                    <td>@price.MarketName</td>
+                    <td class="text-success"><strong>₹@price.Price</strong></td>
+                    <td>@price.Unit</td>
+                    <td>@price.Date.ToString("dd MMM yyyy")</td>
+                    <td>
+                        <a asp-action="DeletePrice" asp-route-id="@price.PriceId" 
+                           class="btn btn-danger btn-sm"
+                           onclick="return confirm('Delete this price?')">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back</a>
+</div>
