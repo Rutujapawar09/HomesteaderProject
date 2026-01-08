@@ -86,5 +86,6 @@ namespace Template.Controllers
 
             return RedirectToAction("Login");
         }
+
     }
 }
