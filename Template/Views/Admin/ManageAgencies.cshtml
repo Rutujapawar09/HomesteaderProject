@@ -9,46 +9,72 @@
 
     @if (TempData["Success"] != null)
     {
-        <div class="alert alert-success">@TempData["Success"]</div>
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
     }
 
-    <table class="table table-bordered table-hover">
-        <thead class="table-warning">
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Status</th>
-                <th>Registered On</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var agency in Model)
-            {
+    @if (Model.Count == 0)
+    {
+        <div class="alert alert-info">
+            <i class="bi bi-info-circle"></i> No agencies registered yet.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-hover">
+            <thead class="table-warning">
                 <tr>
-                    <td>@agency.Name</td>
-                    <td>@agency.Email</td>
-                    <td>
-                        <span class="badge bg-@(agency.Status == "Approved" ? "success" : "warning")">
-                            @agency.Status
-                        </span>
-                    </td>
-                    <td>@agency.CreatedAt.ToString("dd MMM yyyy")</td>
-                    <td>
-                        @if (agency.Status == "Pending")
-                        {
-                            <a asp-action="ApproveAgency" asp-route-id="@agency.UserId" class="btn btn-success btn-sm">✓ Approve</a>
-                            <a asp-action="RejectAgency" asp-route-id="@agency.UserId" class="btn btn-danger btn-sm">✗ Reject</a>
-                        }
-                        else
-                        {
-                            <span class="text-muted">@agency.Status</span>
-                        }
-                    </td>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Registered On</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var agency in Model)
+                {
+                    <tr>
+                        <td>@agency.UserId</td>
+                        <td><strong>@agency.Name</strong></td>
+                        <td>@agency.Email</td>
+                        <td>
+                            <span class="badge bg-@(agency.Status == "Approved" ? "success" : agency.Status == "Pending" ? "warning" : "danger")">
+                                @agency.Status
+                            </span>
+                        </td>
+                        <td>@agency.CreatedAt.ToString("dd MMM yyyy")</td>
+                        <td>
+                            @if (agency.Status == "Pending")
+                            {
+                                <a asp-action="ApproveAgency" asp-route-id="@agency.UserId"
+                                   class="btn btn-success btn-sm"
+                                   onclick="return confirm('Approve this agency?')">
+                                    ✓ Approve
+                                </a>
+                                <a asp-action="RejectAgency" asp-route-id="@agency.UserId"
+                                   class="btn btn-danger btn-sm"
+                                   onclick="return confirm('Reject this agency? They will receive a rejection email.')">
+                                    ✗ Reject
+                                </a>
+                            }
+                            else if (agency.Status == "Approved")
+                            {
+                                <span class="text-success">✓ Approved</span>
+                            }
+                            else
+                            {
+                                <span class="text-danger">✗ Rejected</span>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 
-    <a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back</a>
+    <a asp-action="Dashboard" class="btn btn-secondary mt-3">← Back to Dashboard</a>
 </div>

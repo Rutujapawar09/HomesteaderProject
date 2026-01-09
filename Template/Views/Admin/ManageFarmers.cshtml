@@ -9,7 +9,10 @@
 
     @if (TempData["Success"] != null)
     {
-        <div class="alert alert-success">@TempData["Success"]</div>
+        <div class="alert alert-success alert-dismissible fade show">
+            @TempData["Success"]
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
     }
 
     <table class="table table-bordered table-hover">
@@ -29,7 +32,7 @@
                     <td>@farmer.Name</td>
                     <td>@farmer.Email</td>
                     <td>
-                        <span class="badge bg-@(farmer.Status == "Approved" ? "success" : "warning")">
+                        <span class="badge bg-@(farmer.Status == "Approved" ? "success" : farmer.Status == "Pending" ? "warning" : "danger")">
                             @farmer.Status
                         </span>
                     </td>
@@ -37,11 +40,22 @@
                     <td>
                         @if (farmer.Status == "Pending")
                         {
-                            <a asp-action="ApproveFarmer" asp-route-id="@farmer.UserId" class="btn btn-success btn-sm">✓ Approve</a>
+                            <a asp-action="ApproveFarmer" asp-route-id="@farmer.UserId"
+                               class="btn btn-success btn-sm"
+                               onclick="return confirm('Approve this farmer?')">
+                                ✓ Approve
+                            </a>
+                            <a asp-action="RejectFarmer" asp-route-id="@farmer.UserId"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Reject this farmer?')">
+                                ✗ Reject
+                            </a>
                         }
                         else
                         {
-                            <span class="text-success">✓ Approved</span>
+                            <span class="text-@(farmer.Status == "Approved" ? "success" : "danger")">
+                                @(farmer.Status == "Approved" ? "✓" : "✗") @farmer.Status
+                            </span>
                         }
                     </td>
                 </tr>
